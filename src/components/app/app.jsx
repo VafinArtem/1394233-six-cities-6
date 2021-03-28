@@ -5,24 +5,29 @@ import Main from '../main/main';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
 import Favorites from '../favorites/favorites';
 import FullCard from '../full-card/full-card';
+import NotFound from '../sign-in-screen/sign-in-screen';
+import {Url} from '../../consts';
 
 const App = ({cardsCount}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={Url.MAIN}>
           <Main
             cardsCount={cardsCount}
           />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={Url.SIGN_IN}>
           <SignInScreen />
         </Route>
-        <Route exact path="/favorites">
+        <Route exact path={Url.FAVORITES}>
           <Favorites />
         </Route>
-        <Route exact path="/offer/:id">
+        <Route exact path={Url.CARD}>
           <FullCard />
+        </Route>
+        <Route>
+          <NotFound />
         </Route>
       </Switch>
     </BrowserRouter>
