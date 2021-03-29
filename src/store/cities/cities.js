@@ -1,5 +1,4 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {offers} from '../../mocks/offers';
 import {ActionType} from '../action';
 
 const citiesTab = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
@@ -7,7 +6,6 @@ const citiesTab = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Duss
 const initialState = {
   city: `Paris`,
   cities: citiesTab,
-  offers
 };
 
 const cities = createReducer(initialState, (builder) => {

@@ -1,4 +1,4 @@
-export const offers = [
+export const hotels = [
   {
     city: {
       name: `Paris`,
@@ -82,7 +82,7 @@ export const offers = [
     title: `Waterfront with extraordinary view`,
     isFavorite: false,
     isPremium: false,
-    rating: 4.8,
+    rating: 1.8,
     type: `apartment`,
     bedrooms: 5,
     maxAdults: 6,
