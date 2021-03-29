@@ -1,44 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {getCities} from '../../store/cities/selectors';
+import LocationTab from '../location-tab/location-tab';
 
-const LocationsTabs = () => {
+const LocationsTabs = ({cities}) => {
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Paris</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Cologne</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Brussels</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item tabs__item--active">
-              <span>Amsterdam</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Hamburg</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Dusseldorf</span>
-            </a>
-          </li>
+          {cities.map((element, index) => <LocationTab key={index + 1} location={element} />)}
         </ul>
       </section>
     </div>
   );
 };
 
-export default LocationsTabs;
+LocationsTabs.propTypes = {
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  cities: getCities(state),
+});
+
+export {LocationsTabs};
+export default connect(mapStateToProps)(LocationsTabs);
