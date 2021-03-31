@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getOffers} from '../../store/offers/selectors';
+import {getOffersWithCity} from '../../store/offers/selectors';
 import Card from '../card/card';
 import {OFFER_PROP} from '../../utils/validate';
 
@@ -29,7 +29,7 @@ OffersList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffers(state)
+  offers: getOffersWithCity(state)
 });
 
 export {OffersList};
