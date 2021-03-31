@@ -26,7 +26,7 @@ export const hotels = [
       `https://assets.htmlacademy.ru/intensives/javascript-3/hotel/12.jpg`
     ],
     title: `The house among olive `,
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     rating: 3,
     type: `room`,

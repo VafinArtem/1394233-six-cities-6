@@ -11,6 +11,7 @@ const OffersList = ({offers}) => {
       {offers.map(({id, price, previewImage, title, isPremium, rating, isFavorite, type}) => {
         return <Card
           key={id}
+          id={id}
           price={price}
           image={previewImage}
           title={title}
