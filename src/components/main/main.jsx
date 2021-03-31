@@ -1,44 +1,34 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {getActiveCity} from '../../store/cities/selectors';
+import {getOffersWithCity} from '../../store/offers/selectors';
+import Cities from '../cities/cities';
 import Header from '../header/header';
 import LocationsTabs from '../locations-tabs/locations-tabs';
-import Map from '../map/map';
-import OffersList from '../offers-list/offers-list';
+import NotFoundOffers from '../not-found-offers/not-found-offers';
 
-const Main = () => {
+const Main = ({offersAmount, activeCity}) => {
   return (
-    <div className="page page--gray page--main">
+    <div className={`page page--gray page--main ${offersAmount === 0 ? `page__main--index-empty` : ``}`}>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <LocationsTabs />
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width={7} height={4}>
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <OffersList />
-            </section>
-            <Map />
-          </div>
-        </div>
+        {offersAmount === 0 ? <NotFoundOffers city={activeCity} /> : <Cities />}
       </main>
     </div>
   );
 };
 
-export default Main;
+Main.propTypes = {
+  activeCity: PropTypes.string.isRequired,
+  offersAmount: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  offersAmount: getOffersWithCity(state).length,
+  activeCity: getActiveCity(state)
+});
+
+export default connect(mapStateToProps)(Main);
