@@ -1,14 +1,17 @@
 import {combineReducers} from 'redux';
 import {cities} from './cities/cities';
 import {offers} from './offers/offers';
+import {auth} from './auth/auth';
 
 
 export const NameSpace = {
   CITIES: `CITIES`,
-  OFFERS: `OFFERS`
+  OFFERS: `OFFERS`,
+  AUTH: `AUTH`
 };
 
 export default combineReducers({
   [NameSpace.CITIES]: cities,
-  [NameSpace.OFFERS]: offers
+  [NameSpace.OFFERS]: offers,
+  [NameSpace.AUTH]: auth
 });

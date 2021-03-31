@@ -4,3 +4,8 @@ export const Url = {
   CARD: `/offer/:id`,
   FAVORITES: `/favorites`
 };
+
+export const AuthorizationStatus = {
+  AUTH: `Auth`,
+  NO_AUTH: `NoAuth`
+};
