@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {MAX_RATING} from '../../consts';
 import {capitalizeFirstLetter} from '../../utils/common';
 
-const Card = ({price, image, title, isPremium, isFavorite, type, rating, id}) => {
+const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, setActiveOffer}) => {
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={() => setActiveOffer(title)} onMouseLeave={() => setActiveOffer(null)}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
@@ -50,6 +50,7 @@ Card.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
+  setActiveOffer: PropTypes.func.isRequired
 };
 
 export default Card;

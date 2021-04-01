@@ -5,7 +5,8 @@ import {getOffersWithCity} from '../../store/offers/selectors';
 import Card from '../card/card';
 import {OFFER_PROP} from '../../utils/validate';
 
-const OffersList = ({offers}) => {
+const OffersList = ({offers, setActiveOffer}) => {
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map(({id, price, previewImage, title, isPremium, rating, isFavorite, type}) => {
@@ -19,6 +20,7 @@ const OffersList = ({offers}) => {
           rating={rating}
           isFavorite={isFavorite}
           type={type}
+          setActiveOffer={setActiveOffer}
         />;
       })}
     </div>
@@ -27,6 +29,7 @@ const OffersList = ({offers}) => {
 
 OffersList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(OFFER_PROP).isRequired),
+  setActiveOffer: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

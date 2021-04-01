@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getActiveCity, getActiveCityLocation} from '../../store/cities/selectors';
@@ -8,6 +8,8 @@ import OffersList from '../offers-list/offers-list';
 import {CITY_LOCATION_PROP, OFFERS_LOCATION_PROP} from '../../utils/validate';
 
 const Cities = ({activeCity, offersAmount, cityLocation, points}) => {
+  const [activeOffer, setActiveOffer] = useState(null);
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -29,13 +31,16 @@ const Cities = ({activeCity, offersAmount, cityLocation, points}) => {
               <li className="places__option" tabIndex={0}>Top rated first</li>
             </ul>
           </form>
-          <OffersList />
+          <OffersList
+            setActiveOffer={setActiveOffer}
+          />
         </section>
         <div className="cities__right-section">
           <section className="cities__map map">
             <Map
               city={cityLocation}
               points={points}
+              activeOffer={activeOffer}
             />
           </section>
         </div>
@@ -48,7 +53,7 @@ Cities.propTypes = {
   activeCity: PropTypes.string.isRequired,
   offersAmount: PropTypes.number.isRequired,
   cityLocation: PropTypes.shape(CITY_LOCATION_PROP).isRequired,
-  points: PropTypes.arrayOf(PropTypes.shape(OFFERS_LOCATION_PROP).isRequired).isRequired
+  points: PropTypes.arrayOf(PropTypes.shape(OFFERS_LOCATION_PROP).isRequired).isRequired,
 };
 
 const mapStateToProps = (state) => ({

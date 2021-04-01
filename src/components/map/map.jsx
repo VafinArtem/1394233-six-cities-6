@@ -5,7 +5,18 @@ import {CITY_LOCATION_PROP, OFFERS_LOCATION_PROP} from '../../utils/validate';
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({city, points}) => {
+const Pin = {
+  PinUrl: {
+    NOT_ACTIVE: `./img/pin.svg`,
+    ACTIVE: `./img/pin-active.svg`
+  },
+  PinSize: {
+    WIDTH: 27,
+    HEIGHT: 39
+  }
+};
+
+const Map = ({city, points, activeOffer}) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -25,8 +36,8 @@ const Map = ({city, points}) => {
 
     points.forEach((point) => {
       const customIcon = leaflet.icon({
-        iconUrl: `./img/pin.svg`,
-        iconSize: [27, 39]
+        iconUrl: `${activeOffer === point.title ? Pin.PinUrl.ACTIVE : Pin.PinUrl.NOT_ACTIVE}`,
+        iconSize: [Pin.PinSize.WIDTH, Pin.PinSize.HEIGHT]
       });
 
       leaflet.marker({
@@ -43,7 +54,7 @@ const Map = ({city, points}) => {
     return () => {
       mapRef.current.remove();
     };
-  }, [city]);
+  }, [city, activeOffer]);
 
   return (
     <div id="map" ref={mapRef} style={{height: `100%`}}></div>
@@ -52,7 +63,8 @@ const Map = ({city, points}) => {
 
 Map.propTypes = {
   city: PropTypes.shape(CITY_LOCATION_PROP).isRequired,
-  points: PropTypes.arrayOf(PropTypes.shape(OFFERS_LOCATION_PROP).isRequired).isRequired
+  points: PropTypes.arrayOf(PropTypes.shape(OFFERS_LOCATION_PROP).isRequired).isRequired,
+  activeOffer: PropTypes.string
 };
 
 export default Map;
