@@ -14,6 +14,7 @@ const getFilteredLocationOffers = (offers, city) => {
 };
 
 export const getOffers = (state) => state[NameSpace.OFFERS].offers;
+export const getSortingType = (state) => state[NameSpace.OFFERS].sortType;
 
 export const getOffersWithCity = createSelector(
     getOffers,

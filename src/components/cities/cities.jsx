@@ -5,8 +5,8 @@ import {getActiveCity, getActiveCityLocation} from '../../store/cities/selectors
 import {getOfferLocations, getOffersWithCity} from '../../store/offers/selectors';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
-import {CITY_LOCATION_PROP, OFFERS_LOCATION_PROP} from '../../utils/validate';
 import SortingForm from '../sorting-form/sorting-form';
+import {CITY_LOCATION_PROP, OFFERS_LOCATION_PROP} from '../../utils/validate';
 
 const Cities = ({activeCity, offersAmount, cityLocation, points}) => {
   const [activeOffer, setActiveOffer] = useState(null);
