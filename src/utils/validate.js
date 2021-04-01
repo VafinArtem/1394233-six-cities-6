@@ -34,3 +34,21 @@ export const OFFER_PROP = {
   }).isRequired,
   id: PropTypes.number.isRequired
 };
+
+export const CITY_LOCATION_PROP = {
+  name: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired
+  }).isRequired
+};
+
+export const OFFERS_LOCATION_PROP = {
+  title: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired,
+  })
+};
