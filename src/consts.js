@@ -13,10 +13,19 @@ export const AuthorizationStatus = {
 export const MAX_RATING = 5;
 
 export const SortType = {
-  POPUPLAR: `Popular`,
-  PRICE_TO_HIGH: `Price: low to high`,
-  PRICE_TO_LOW: `Price: high to low`,
-  TOP_RATED: `Top rated first`
+  POPULAR: `popular`,
+  PRICE_TO_HIGH: `priceToHight`,
+  PRICE_TO_LOW: `priceToLow`,
+  TOP_RATED: `topRated`
 };
 
-export const SortTypeName = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
+export const SortingDecryption = new Map([
+  [`Popular`, `popular`],
+  [`Price: low to high`, `priceToHight`],
+  [`Price: high to low`, `priceToLow`],
+  [`Top rated first`, `topRated`]
+]);
+
+export const SORT_TYPE_DEFAULT = `Popular`;
+
+export const sortTypeNames = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];

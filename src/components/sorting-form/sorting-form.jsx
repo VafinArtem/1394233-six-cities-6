@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {SortTypeName} from '../../consts';
+import {sortTypeNames} from '../../consts';
 import {changeSort} from '../../store/action';
 import {getSortingType} from '../../store/offers/selectors';
 
@@ -20,7 +20,7 @@ const SortingForm = ({sortType, changeActiveSort}) => {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isOpenMenu ? `places__options--opened` : ``}`}>
-        {SortTypeName.map((element, index) => <li
+        {sortTypeNames.map((element, index) => <li
           className={`places__option ${sortType === element ? `places__option--active` : ``}`}
           tabIndex={0}
           key={index + 1}

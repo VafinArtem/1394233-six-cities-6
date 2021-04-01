@@ -6,7 +6,6 @@ import Card from '../card/card';
 import {OFFER_PROP} from '../../utils/validate';
 
 const OffersList = ({offers, setActiveOffer}) => {
-
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map(({id, price, previewImage, title, isPremium, rating, isFavorite, type}) => {
@@ -33,7 +32,7 @@ OffersList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffersWithCity(state)
+  offers: getOffersWithCity(state),
 });
 
 export {OffersList};

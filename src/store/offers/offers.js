@@ -1,11 +1,11 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {hotels} from '../../mocks/offers';
 import {ActionType} from '../action';
-import {SortType} from '../../consts';
+import {SORT_TYPE_DEFAULT} from '../../consts';
 
 const initialState = {
   offers: hotels,
-  sortType: SortType.POPUPLAR,
+  sortType: SORT_TYPE_DEFAULT,
 };
 
 const offers = createReducer(initialState, ((builder) => {
