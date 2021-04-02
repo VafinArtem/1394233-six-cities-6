@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {MAX_RATING} from '../../consts';
-import {capitalizeFirstLetter} from '../../utils/common';
+import {capitalizeFirstLetter, getRatingWidth} from '../../utils/common';
 
 const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, setActiveOffer}) => {
   return (
@@ -28,7 +27,7 @@ const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, set
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating / MAX_RATING * 100}%`}} />
+            <span style={{width: `${getRatingWidth(rating)}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

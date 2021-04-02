@@ -33,7 +33,7 @@ export const reviews = {
     },
     rating: 5,
     comment: `The deluxe room was a quite comfortable one with all the adequate facilities. The only thing that made me feel uncomfortable was the rude behavior of an impolite staff at the reception desk.`,
-    date: `2021-02-23T08:04:28.647Z`
+    date: `2021-05-21T08:04:28.647Z`
   },
   {
     id: 2,

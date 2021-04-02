@@ -35,6 +35,19 @@ export const OFFER_PROP = {
   id: PropTypes.number.isRequired
 };
 
+export const REVIEW_PROP = {
+  id: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    isPro: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    avatarUrl: PropTypes.string.isRequired
+  }),
+  rating: PropTypes.number.isRequired,
+  comment: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired
+};
+
 export const CITY_LOCATION_PROP = {
   name: PropTypes.string.isRequired,
   location: PropTypes.shape({
