@@ -5,7 +5,7 @@ import {capitalizeFirstLetter, getRatingWidth} from '../../utils/common';
 
 const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, setActiveOffer}) => {
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => setActiveOffer(title)} onMouseLeave={() => setActiveOffer(null)}>
+    <article className="cities__place-card place-card" onMouseEnter={() => setActiveOffer(id)} onMouseLeave={() => setActiveOffer(null)}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>

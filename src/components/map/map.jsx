@@ -36,7 +36,7 @@ const Map = ({city, points, activeOffer}) => {
 
     points.forEach((point) => {
       const customIcon = leaflet.icon({
-        iconUrl: `${activeOffer === point.title ? Pin.PinUrl.ACTIVE : Pin.PinUrl.NOT_ACTIVE}`,
+        iconUrl: `${activeOffer === point.id ? Pin.PinUrl.ACTIVE : Pin.PinUrl.NOT_ACTIVE}`,
         iconSize: [Pin.PinSize.WIDTH, Pin.PinSize.HEIGHT]
       });
 
@@ -64,7 +64,7 @@ const Map = ({city, points, activeOffer}) => {
 Map.propTypes = {
   city: PropTypes.shape(CITY_LOCATION_PROP).isRequired,
   points: PropTypes.arrayOf(PropTypes.shape(OFFERS_LOCATION_PROP).isRequired).isRequired,
-  activeOffer: PropTypes.string
+  activeOffer: PropTypes.number
 };
 
 export default Map;

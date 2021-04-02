@@ -9,6 +9,7 @@ const getFilteredLocationOffers = (offers, city) => {
   const points = [];
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
   filteredOffers.forEach((element) => points.push({
+    id: element.id,
     title: element.title,
     location: element.location
   }));

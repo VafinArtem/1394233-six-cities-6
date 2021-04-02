@@ -58,6 +58,7 @@ export const CITY_LOCATION_PROP = {
 };
 
 export const OFFERS_LOCATION_PROP = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   location: PropTypes.shape({
     latitude: PropTypes.number.isRequired,
