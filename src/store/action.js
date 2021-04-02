@@ -5,9 +5,10 @@ export const ActionType = {
   OFFERS: `offers/offers`,
   CHANGE_SORT: `offers/changeSort`,
   AUTHORIZATION: `site/authorization`,
-  ACTIVE_FORM: `review/activeForm`,
+  ACTIVE_FORM: `reviews/activeForm`,
   REDIRECT_TO_ROUTE: `site/redirectToRoute`,
-  LOAD_OFFERS: `offers/loadOffers`
+  LOAD_OFFERS: `offers/loadOffers`,
+  LOAD_REVIEWS: `reviews/load`
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({payload: city}));
@@ -16,3 +17,10 @@ export const activeForm = createAction(ActionType.ACTIVE_FORM, (boolean) => ({pa
 export const authorization = createAction(ActionType.AUTHORIZATION, (action, email) => ({payload: {action, email}}));
 export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({payload: url}));
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({payload: offers}));
+export const loadComments = createAction(ActionType.LOAD_REVIEWS, (comments, id) => {
+  return {
+    payload: {
+      [id]: comments
+    }
+  };
+});

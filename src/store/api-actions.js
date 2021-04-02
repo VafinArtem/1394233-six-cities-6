@@ -1,11 +1,12 @@
 import browserHistory from "../browser-history";
 import {AuthorizationStatus, Url} from "../consts";
-import {authorization, loadOffers, redirectToRoute} from "./action";
+import {authorization, loadComments, loadOffers, redirectToRoute} from "./action";
 
 const ApiRoute = {
   LOGIN: `/login`,
   LOGOUT: `/logout`,
-  OFFERS: `/hotels`
+  OFFERS: `/hotels`,
+  COMMENTS: `/comments`
 };
 
 const adaptToClient = (offer) => {
@@ -36,6 +37,26 @@ const adaptToClient = (offer) => {
   return adaptedOffer;
 };
 
+const adaptReviewToClient = (review) => {
+  const adaptedReview = Object.assign(
+      {},
+      review,
+      {
+        user: {
+          avatarUrl: review.user.avatar_url,
+          id: review.user.id,
+          isPro: review.user.is_pro,
+          name: review.user.name
+        }
+      }
+  );
+
+  delete adaptedReview.user.is_pro;
+  delete adaptedReview.user.avatar_url;
+
+  return adaptedReview;
+};
+
 export const checkLogin = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.LOGIN)
     .then(({data}) => dispatch(authorization(AuthorizationStatus.AUTH, data.email)))
@@ -63,4 +84,11 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.OFFERS)
     .then(({data}) => data.map(adaptToClient))
     .then((data) => dispatch(loadOffers(data)))
+);
+
+export const fetchComments = (reviewID) => (dispatch, _getState, api) => (
+  api.get(`${ApiRoute.COMMENTS}/${reviewID}`)
+    .then(({data}) => data.map(adaptReviewToClient))
+    .then((data) => dispatch(loadComments(data, reviewID)))
+    .catch(() => {})
 );

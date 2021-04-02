@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Header from '../header/header';
 import {OFFER_PROP} from '../../utils/validate';
 import {capitalizeFirstLetter, getRatingWidth} from '../../utils/common';
-import ReviewForm from '../review-form/review-form';
 import Reviews from '../reviews/reviews';
 
 const ImagesAmount = {
@@ -91,12 +90,9 @@ const FullCard = ({offer}) => {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <Reviews
-                  id={id}
-                />
-                <ReviewForm />
-              </section>
+              <Reviews
+                id={id}
+              />
             </div>
           </div>
           <section className="property__map map" />
