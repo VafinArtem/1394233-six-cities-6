@@ -1,10 +1,39 @@
 import browserHistory from "../browser-history";
 import {AuthorizationStatus, Url} from "../consts";
-import {authorization, redirectToRoute} from "./action";
+import {authorization, loadOffers, redirectToRoute} from "./action";
 
 const ApiRoute = {
   LOGIN: `/login`,
-  LOGOUT: `/logout`
+  LOGOUT: `/logout`,
+  OFFERS: `/hotels`
+};
+
+const adaptToClient = (offer) => {
+  const adaptedOffer = Object.assign(
+      {},
+      offer,
+      {
+        host: {
+          avatarUrl: offer.host.avatar_url,
+          isPro: offer.host.is_pro,
+          id: offer.host.id,
+          name: offer.host.name
+        },
+        isFavorite: offer.is_favorite,
+        isPremium: offer.is_premium,
+        maxAdults: offer.max_adults,
+        previewImage: offer.preview_image
+      }
+  );
+
+  delete adaptedOffer.host.avatar_url;
+  delete adaptedOffer.host.is_pro;
+  delete adaptedOffer.is_favorite;
+  delete adaptedOffer.is_premium;
+  delete adaptedOffer.max_adults;
+  delete adaptedOffer.preview_image;
+
+  return adaptedOffer;
 };
 
 export const checkLogin = () => (dispatch, _getState, api) => (
@@ -28,4 +57,10 @@ export const logout = () => (dispatch, _getState, api) => (
         dispatch(redirectToRoute(Url.MAIN));
       }
     })
+);
+
+export const fetchOffers = () => (dispatch, _getState, api) => (
+  api.get(ApiRoute.OFFERS)
+    .then(({data}) => data.map(adaptToClient))
+    .then((data) => dispatch(loadOffers(data)))
 );
