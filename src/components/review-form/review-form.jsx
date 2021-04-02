@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {activeForm} from '../../store/action';
-import {getActiveReviewFormStatus} from '../../store/review/selectors';
+import {getActiveReviewFormStatus, getStatusResetForm} from '../../store/review/selectors';
 import RatingStar from '../rating-star/rating-star';
+import {postReview} from '../../store/api-actions';
 
 const ratings = [5, 4, 3, 2, 1];
 
@@ -13,19 +14,32 @@ const CommentLength = {
   MAX: 300
 };
 
-const ReviewForm = ({activateForm, isActiveForm}) => {
+const ReviewForm = ({activateForm, isActiveForm, postUserReview, filmID, needResetForm}) => {
   const [rating, setRating] = useState(DEFAULT_RATING);
   const [review, setReview] = useState(``);
+
+  const formRef = useRef();
 
   useEffect(() => {
     activateForm(review.length >= CommentLength.MIN && review.length <= CommentLength.MAX && rating !== DEFAULT_RATING);
   }, [review, rating]);
 
+  useEffect(() => {
+    if (needResetForm) {
+      formRef.current.reset();
+      setRating(DEFAULT_RATING);
+      setReview(``);
+    }
+  }, [needResetForm]);
+
   return (
-    <form className="reviews__form form" action="#" method="post" onChange={(evt) => {
+    <form className="reviews__form form" action="#" method="post" ref={formRef} onChange={(evt) => {
       if (evt.target.name === `rating`) {
         setRating(parseInt(evt.target.value, 10));
       }
+    }} onSubmit={(evt) => {
+      evt.preventDefault();
+      postUserReview(filmID, {rating, review});
     }}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -50,16 +64,23 @@ const ReviewForm = ({activateForm, isActiveForm}) => {
 
 ReviewForm.propTypes = {
   activateForm: PropTypes.func.isRequired,
-  isActiveForm: PropTypes.bool.isRequired
+  isActiveForm: PropTypes.bool.isRequired,
+  postUserReview: PropTypes.func.isRequired,
+  filmID: PropTypes.number.isRequired,
+  needResetForm: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
   isActiveForm: getActiveReviewFormStatus(state),
+  needResetForm: getStatusResetForm(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   activateForm(boolean) {
     dispatch(activeForm(boolean));
+  },
+  postUserReview(id, review) {
+    dispatch(postReview(id, review));
   }
 });
 

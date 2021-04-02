@@ -3,7 +3,8 @@ import {ActionType} from '../action';
 
 const initialState = {
   isActiveForm: false,
-  reviews: {}
+  reviews: {},
+  needResetForm: false
 };
 
 const review = createReducer(initialState, ((builder) => {
@@ -16,6 +17,14 @@ const review = createReducer(initialState, ((builder) => {
         state.reviews,
         action.payload
     );
+  });
+  builder.addCase(ActionType.POST_REVIEW, (state, action) => {
+    state.reviews = Object.assign(
+        {},
+        state.reviews,
+        action.payload
+    );
+    state.needResetForm = true;
   });
 }));
 

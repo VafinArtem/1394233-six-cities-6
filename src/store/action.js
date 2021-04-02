@@ -8,7 +8,8 @@ export const ActionType = {
   ACTIVE_FORM: `reviews/activeForm`,
   REDIRECT_TO_ROUTE: `site/redirectToRoute`,
   LOAD_OFFERS: `offers/loadOffers`,
-  LOAD_REVIEWS: `reviews/load`
+  LOAD_REVIEWS: `reviews/load`,
+  POST_REVIEW: `reviews/post`
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({payload: city}));
@@ -18,6 +19,13 @@ export const authorization = createAction(ActionType.AUTHORIZATION, (action, ema
 export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({payload: url}));
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({payload: offers}));
 export const loadComments = createAction(ActionType.LOAD_REVIEWS, (comments, id) => {
+  return {
+    payload: {
+      [id]: comments
+    }
+  };
+});
+export const addReview = createAction(ActionType.POST_REVIEW, (comments, id) => {
   return {
     payload: {
       [id]: comments

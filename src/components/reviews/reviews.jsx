@@ -17,7 +17,7 @@ const Reviews = ({id, reviews, loadComments}) => {
   return (
     <section className="property__reviews reviews">
       {reviews[id] === undefined ? <p>Loading...</p> : <ReviewList reviews={reviews[id]} />}
-      <ReviewForm />
+      <ReviewForm filmID={id}/>
     </section>
   );
 };
