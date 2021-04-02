@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {logout} from '../../store/api-actions';
 import {getEmail} from '../../store/auth/selectors';
+import {Link} from 'react-router-dom';
+import {Url} from '../../consts';
 
 const User = ({userLogout, email}) => {
   return (
-    <a className="header__nav-link header__nav-link--profile" href="#" onClick={(evt) => {
-      evt.preventDefault();
-    }}>
-      <div className="header__avatar-wrapper user__avatar-wrapper" onClick={(evt) => {
+    <Link to={Url.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={(evt) => {
+      if (evt.target.classList.contains(`user__avatar-wrapper`)) {
         evt.preventDefault();
         userLogout();
-      }}>
+      }
+    }}>
+      <div className="header__avatar-wrapper user__avatar-wrapper">
       </div>
       <span className="header__user-name user__name">{email}</span>
-    </a>
+    </Link>
   );
 };
 
