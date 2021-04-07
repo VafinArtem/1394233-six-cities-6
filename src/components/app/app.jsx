@@ -10,6 +10,7 @@ import {getOffers} from '../../store/offers/selectors';
 import {Url} from '../../consts';
 import {OFFER_PROP} from '../../utils/validate';
 import NotFound from '../not-found/not-found';
+import PrivateRoute from '../private-route/private-route';
 
 const App = ({offers}) => {
   return (
@@ -20,9 +21,10 @@ const App = ({offers}) => {
       <Route exact path={Url.SIGN_IN}>
         <SignInScreen />
       </Route>
-      <Route exact path={Url.FAVORITES}>
-        <Favorites />
-      </Route>
+      <PrivateRoute exact
+        path={Url.FAVORITES}
+        render={() => <Favorites />}
+      />
       <Route exact path={Url.OFFER} render={({match}) => {
         const id = match.params.id;
         return <FullCard

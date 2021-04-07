@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {AuthorizationStatus, Url} from '../../consts';
-import {getAuthorizatonStatus} from '../../store/auth/selectors';
+import {getAuthorizationStatus} from '../../store/auth/selectors';
 import SignIn from '../sign-in/sign-in';
 import User from '../user/user';
 
@@ -42,7 +42,7 @@ Header.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorization: getAuthorizatonStatus(state)
+  authorization: getAuthorizationStatus(state)
 });
 
 export {Header};
