@@ -5,6 +5,7 @@ import {SORT_TYPE_DEFAULT} from '../../consts';
 const initialState = {
   offers: [],
   sortType: SORT_TYPE_DEFAULT,
+  favorites: []
 };
 
 const offers = createReducer(initialState, ((builder) => {
