@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Header from '../header/header';
 import {OFFER_PROP} from '../../utils/validate';
 import {capitalizeFirstLetter, getRatingWidth} from '../../utils/common';
 import Reviews from '../reviews/reviews';
+import {addFavorite} from '../../store/api-actions';
 
 const ImagesAmount = {
   MIN: 0,
@@ -11,7 +13,7 @@ const ImagesAmount = {
 };
 
 
-const FullCard = ({offer}) => {
+const FullCard = ({offer, addFavoriteList}) => {
   const {images, title, isFavorite, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description, id} = offer;
   return (
     <div className="page">
@@ -34,7 +36,9 @@ const FullCard = ({offer}) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
+                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button" onClick={() => {
+                  addFavoriteList(id, Number(!isFavorite));
+                }}>
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -204,6 +208,13 @@ const FullCard = ({offer}) => {
 
 FullCard.propTypes = {
   offer: PropTypes.shape(OFFER_PROP).isRequired,
+  addFavoriteList: PropTypes.func.isRequired
 };
 
-export default FullCard;
+const mapDispatchToProps = (dispatch) => ({
+  addFavoriteList(id, status) {
+    dispatch(addFavorite(id, status));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(FullCard);

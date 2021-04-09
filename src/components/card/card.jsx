@@ -1,9 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {capitalizeFirstLetter, getRatingWidth} from '../../utils/common';
+import {addFavorite} from '../../store/api-actions';
 
-const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, setActiveOffer}) => {
+const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, setActiveOffer, addFavoriteList}) => {
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => setActiveOffer(id)} onMouseLeave={() => setActiveOffer(null)}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
@@ -18,7 +20,9 @@ const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, set
             <b className="place-card__price-value">€${price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`} type="button">
+          <button className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`} type="button" onClick={() => {
+            addFavoriteList(id, Number(!isFavorite));
+          }}>
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -49,7 +53,14 @@ Card.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
-  setActiveOffer: PropTypes.func.isRequired
+  setActiveOffer: PropTypes.func.isRequired,
+  addFavoriteList: PropTypes.func.isRequired
 };
 
-export default Card;
+const mapDispatchToProps = (dispatch) => ({
+  addFavoriteList(id, status) {
+    dispatch(addFavorite(id, status));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Card);

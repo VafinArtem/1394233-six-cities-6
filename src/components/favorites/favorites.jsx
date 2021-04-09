@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -8,8 +8,14 @@ import Header from '../header/header';
 import {getFavoriteOffers} from '../../store/offers/selectors';
 import {Url} from '../../consts';
 import {OFFER_PROP} from '../../utils/validate';
+import {fetchFavoriteOffers} from '../../store/api-actions';
 
-const Favorites = ({favorites}) => {
+const Favorites = ({favorites, loadOffers}) => {
+  useEffect(() => {
+    if (favorites.length === 0) {
+      loadOffers();
+    }
+  }, [favorites]);
   return (
     <div className={`page ${favorites.length === 0 ? `page--favorites-empty` : ``}`}>
       <Header />
@@ -29,10 +35,17 @@ const Favorites = ({favorites}) => {
 
 Favorites.propTypes = {
   favorites: PropTypes.arrayOf(PropTypes.shape(OFFER_PROP)),
+  loadOffers: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   favorites: getFavoriteOffers(state),
 });
 
-export default connect(mapStateToProps)(Favorites);
+const mapDispatchToProps = (dispatch) => ({
+  loadOffers() {
+    dispatch(fetchFavoriteOffers());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

@@ -9,7 +9,10 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `site/redirectToRoute`,
   LOAD_OFFERS: `offers/loadOffers`,
   LOAD_REVIEWS: `reviews/load`,
-  POST_REVIEW: `reviews/post`
+  POST_REVIEW: `reviews/post`,
+  ADD_FAVORITE_OFFER: `offers/addFavorite`,
+  REMOVE_FAVORITE_OFFER: `offers/removeFavorite`,
+  LOAD_FAVORITE_OFFERS: `offers/loadFavorites`,
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({payload: city}));
@@ -32,3 +35,6 @@ export const addReview = createAction(ActionType.POST_REVIEW, (comments, id) => 
     }
   };
 });
+export const addFavoriteList = createAction(ActionType.ADD_FAVORITE_OFFER, (offer) => ({payload: offer}));
+export const removeFavoriteList = createAction(ActionType.REMOVE_FAVORITE_OFFER, (id) => ({payload: id}));
+export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS, (offers) => ({payload: offers}));

@@ -6,11 +6,11 @@ import Main from '../main/main';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
 import Favorites from '../favorites/favorites';
 import FullCard from '../full-card/full-card';
+import NotFound from '../not-found/not-found';
+import PrivateRoute from '../private-route/private-route';
 import {getOffers} from '../../store/offers/selectors';
 import {Url} from '../../consts';
 import {OFFER_PROP} from '../../utils/validate';
-import NotFound from '../not-found/not-found';
-import PrivateRoute from '../private-route/private-route';
 
 const App = ({offers}) => {
   return (

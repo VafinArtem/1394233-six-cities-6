@@ -1,13 +1,14 @@
 import browserHistory from "../browser-history";
 import {AuthorizationStatus, Url} from "../consts";
-import {authorization, loadComments, loadOffers, redirectToRoute, addReview} from "./action";
+import {authorization, loadComments, loadOffers, redirectToRoute, addReview, addFavoriteList, removeFavoriteList, loadFavoriteOffers} from "./action";
 import {adaptReviewToClient, adaptToClient, adaptToServer} from "./adapter";
 
 const ApiRoute = {
   LOGIN: `/login`,
   LOGOUT: `/logout`,
   OFFERS: `/hotels`,
-  COMMENTS: `/comments`
+  COMMENTS: `/comments`,
+  FAVORITE: `/favorite`
 };
 
 export const checkLogin = () => (dispatch, _getState, api) => (
@@ -51,4 +52,19 @@ export const postReview = (id, comment) => (dispatch, _getState, api) => (
     .then(({data}) => data.map(adaptReviewToClient))
     .then((data) => dispatch(addReview(data, id)))
     .catch(() => {})
+);
+
+export const addFavorite = (id, status) => (dispatch, _getState, api) => (
+  api.post(`${ApiRoute.FAVORITE}/${id}/${status}`)
+    .then(({data}) => adaptToClient(data))
+    .then((data) => {
+      return status === 1 ? dispatch(addFavoriteList(data)) : dispatch(removeFavoriteList(data.id));
+    })
+    // .catch(() => dispatch(redirectToRoute(Url.SIGN_IN)))
+);
+
+export const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
+  api.get(ApiRoute.FAVORITE)
+    .then(({data}) => data.map(adaptToClient))
+    .then((data) => dispatch(loadFavoriteOffers(data)))
 );
