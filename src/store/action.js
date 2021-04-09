@@ -13,6 +13,7 @@ export const ActionType = {
   ADD_FAVORITE_OFFER: `offers/addFavorite`,
   REMOVE_FAVORITE_OFFER: `offers/removeFavorite`,
   LOAD_FAVORITE_OFFERS: `offers/loadFavorites`,
+  LOAD_OFFER: `offers/loadOffer`
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({payload: city}));
@@ -38,3 +39,4 @@ export const addReview = createAction(ActionType.POST_REVIEW, (comments, id) => 
 export const addFavoriteList = createAction(ActionType.ADD_FAVORITE_OFFER, (offer) => ({payload: offer}));
 export const removeFavoriteList = createAction(ActionType.REMOVE_FAVORITE_OFFER, (id) => ({payload: id}));
 export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS, (offers) => ({payload: offers}));
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => ({payload: offer}));

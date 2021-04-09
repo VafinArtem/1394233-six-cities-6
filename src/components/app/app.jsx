@@ -8,11 +8,12 @@ import Favorites from '../favorites/favorites';
 import FullCard from '../full-card/full-card';
 import NotFound from '../not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {getOffers} from '../../store/offers/selectors';
+import {getLoadedOffer, getOffers} from '../../store/offers/selectors';
 import {Url} from '../../consts';
 import {OFFER_PROP} from '../../utils/validate';
+import {fetchOffer} from '../../store/api-actions';
 
-const App = ({offers}) => {
+const App = ({offers, loadedOffer, loadOffer}) => {
   return (
     <Switch>
       <Route exact path={Url.MAIN}>
@@ -27,8 +28,17 @@ const App = ({offers}) => {
       />
       <Route exact path={Url.OFFER} render={({match}) => {
         const id = match.params.id;
+        if (offers.length !== 0) {
+          return <FullCard
+            offer={offers[id - 1]}
+          />;
+        }
+        if (loadedOffer === null) {
+          loadOffer(id);
+          return <p>Loading...</p>;
+        }
         return <FullCard
-          offer={offers[id - 1]}
+          offer={loadedOffer}
         />;
       }} />
       <Route>
@@ -40,11 +50,20 @@ const App = ({offers}) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(OFFER_PROP).isRequired),
+  loadOffer: PropTypes.func.isRequired,
+  loadedOffer: PropTypes.objectOf(OFFER_PROP)
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
+  loadedOffer: getLoadedOffer(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadOffer(id) {
+    dispatch(fetchOffer(id));
+  },
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
