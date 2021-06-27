@@ -45,9 +45,11 @@ const changeFavoriteStatusNearbyOffer = (state, action, isRemove) => {
   } else {
     currentIndexOffer = findOfferIndex(state.nearbyOffers, action.payload.id);
   }
-  state.nearbyOffers[currentIndexOffer] = Object.assign({}, state.nearbyOffers[currentIndexOffer], {
-    isFavorite: !state.nearbyOffers[currentIndexOffer].isFavorite,
-  });
+  if (state.nearbyOffers[currentIndexOffer]) {
+    state.nearbyOffers[currentIndexOffer] = Object.assign({}, state.nearbyOffers[currentIndexOffer], {
+      isFavorite: !state.nearbyOffers[currentIndexOffer].isFavorite,
+    });
+  }
 };
 
 const offers = createReducer(initialState, (builder) => {
