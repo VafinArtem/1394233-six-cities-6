@@ -27,13 +27,14 @@ const App = ({offers, loadedOffer, loadOffer}) => {
         render={() => <Favorites />}
       />
       <Route exact path={Url.OFFER} render={({match}) => {
-        const id = match.params.id;
+        const id = +match.params.id;
         if (offers.length !== 0) {
           return <FullCard
             offer={offers[id - 1]}
           />;
         }
-        if (loadedOffer === null) {
+
+        if (!loadedOffer || loadedOffer.id !== id) {
           loadOffer(id);
           return <p>Loading...</p>;
         }
@@ -51,12 +52,12 @@ const App = ({offers, loadedOffer, loadOffer}) => {
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(OFFER_PROP).isRequired),
   loadOffer: PropTypes.func.isRequired,
-  loadedOffer: PropTypes.shape(OFFER_PROP)
+  loadedOffer: PropTypes.shape(OFFER_PROP),
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
-  loadedOffer: getLoadedOffer(state)
+  loadedOffer: getLoadedOffer(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

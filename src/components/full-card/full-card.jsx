@@ -110,7 +110,7 @@ const FullCard = ({offer, addFavoriteList, nearbyOffers, loadNearby}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyOffers !== undefined ? nearbyOffers.map((element) => <Card
+              {nearbyOffers.length > 0 ? nearbyOffers.map((element) => <Card
                 key={element.id}
                 id={element.id}
                 price={element.price}
