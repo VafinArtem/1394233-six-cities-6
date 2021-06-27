@@ -5,15 +5,6 @@ import {CITY_LOCATION_PROP, OFFERS_LOCATION_PROP} from '../../utils/validate';
 
 import "leaflet/dist/leaflet.css";
 
-const CITIES = {
-  Amsterdam: [52.3833, 4.9044],
-  Paris: [48.8589, 2.3469],
-  Cologne: [50.9293, 6.9595],
-  Brussels: [50.8552, 4.3453],
-  Hamburg: [53.5503, 10.0006],
-  Dusseldorf: [51.2287, 6.7743]
-};
-
 const Pin = {
   PinUrl: {
     NOT_ACTIVE: `./img/pin.svg`,
@@ -29,7 +20,7 @@ const setMarkers = (points, map, activeOffer) => {
   points.forEach((point) => {
     const customIcon = leaflet.icon({
       iconUrl: `${activeOffer === point.id ? Pin.PinUrl.ACTIVE : Pin.PinUrl.NOT_ACTIVE}`,
-      iconSize: [Pin.PinSize.WIDTH, Pin.PinSize.HEIGHT]
+      iconSize: [Pin.PinSize.WIDTH, Pin.PinSize.HEIGHT],
     });
 
     leaflet.marker({
@@ -54,7 +45,6 @@ const removeMarkers = (map) => {
 
 const Map = ({city, points, activeOffer}) => {
   const mapRef = useRef();
-  const currentCity = CITIES[city.name] || city;
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
@@ -62,7 +52,9 @@ const Map = ({city, points, activeOffer}) => {
         lat: city.location.latitude,
         lng: city.location.longitude
       },
-      zoom: city.location.zoom
+      zoom: city.location.zoom,
+      zoomControl: false,
+      scrollWheelZoom: false
     });
 
     leaflet
@@ -83,13 +75,13 @@ const Map = ({city, points, activeOffer}) => {
   }, [activeOffer]);
 
   useEffect(() => {
-    mapRef.current.flyTo(new leaflet.LatLng(...currentCity), city.location.zoom);
+    mapRef.current.flyTo(new leaflet.LatLng(city.location.latitude, city.location.longitude), city.location.zoom);
     removeMarkers(mapRef.current);
     setMarkers(points, mapRef.current, activeOffer);
   }, [points]);
 
   return (
-    <div id="map" ref={mapRef} style={{height: `100%`}}></div>
+    <div id="map" ref={mapRef} style={{height: `100%`, width: `100%`}}></div>
   );
 };
 

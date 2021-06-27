@@ -5,6 +5,7 @@ import Header from '../header/header';
 import {OFFER_PROP} from '../../utils/validate';
 import {capitalizeFirstLetter, getRatingWidth} from '../../utils/common';
 import Reviews from '../reviews/reviews';
+import Map from '../map/map';
 import {addFavorite, fetchNearbyOffers} from '../../store/api-actions';
 import {getNearbyOffers} from '../../store/offers/selectors';
 import Card from '../card/card';
@@ -104,7 +105,12 @@ const FullCard = ({offer, addFavoriteList, nearbyOffers, loadNearby}) => {
               />
             </div>
           </div>
-          <section className="property__map map" />
+          <section className="property__map map">
+            {nearbyOffers.length > 0 ? <Map
+              city={nearbyOffers[0].city}
+              points={nearbyOffers}
+            /> : ``}
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
