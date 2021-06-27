@@ -60,7 +60,7 @@ export const addFavorite = (id, status) => (dispatch, _getState, api) => (
     .then((data) => {
       return status === 1 ? dispatch(addFavoriteList(data)) : dispatch(removeFavoriteList(data.id));
     })
-    // .catch(() => dispatch(redirectToRoute(Url.SIGN_IN)))
+    .catch(() => dispatch(redirectToRoute(Url.SIGN_IN)))
 );
 
 export const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
