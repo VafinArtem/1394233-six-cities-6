@@ -51,7 +51,7 @@ const App = ({offers, loadedOffer, loadOffer}) => {
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(OFFER_PROP).isRequired),
   loadOffer: PropTypes.func.isRequired,
-  loadedOffer: PropTypes.objectOf(OFFER_PROP)
+  loadedOffer: PropTypes.shape(OFFER_PROP)
 };
 
 const mapStateToProps = (state) => ({

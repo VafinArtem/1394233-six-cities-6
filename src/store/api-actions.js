@@ -1,6 +1,6 @@
 import browserHistory from "../browser-history";
 import {AuthorizationStatus, Url} from "../consts";
-import {authorization, loadComments, loadOffers, redirectToRoute, addReview, addFavoriteList, removeFavoriteList, loadFavoriteOffers, loadOffer} from "./action";
+import {authorization, loadComments, loadOffers, redirectToRoute, addReview, addFavoriteList, removeFavoriteList, loadFavoriteOffers, loadOffer, loadNearbyOffers} from "./action";
 import {adaptReviewToClient, adaptToClient, adaptToServer} from "./adapter";
 
 const ApiRoute = {
@@ -60,7 +60,7 @@ export const addFavorite = (id, status) => (dispatch, _getState, api) => (
     .then((data) => {
       return status === 1 ? dispatch(addFavoriteList(data)) : dispatch(removeFavoriteList(data.id));
     })
-    // .catch(() => dispatch(redirectToRoute(Url.SIGN_IN)))
+    .catch(() => dispatch(redirectToRoute(Url.SIGN_IN)))
 );
 
 export const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
@@ -73,4 +73,10 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${ApiRoute.OFFERS}/${id}`)
     .then(({data}) => adaptToClient(data))
     .then((data) => dispatch(loadOffer(data)))
+);
+
+export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
+  api.get(`${ApiRoute.OFFERS}/${id}/nearby`)
+    .then(({data}) => data.map(adaptToClient))
+    .then((data) => dispatch(loadNearbyOffers(data)))
 );

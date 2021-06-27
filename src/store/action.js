@@ -13,7 +13,8 @@ export const ActionType = {
   ADD_FAVORITE_OFFER: `offers/addFavorite`,
   REMOVE_FAVORITE_OFFER: `offers/removeFavorite`,
   LOAD_FAVORITE_OFFERS: `offers/loadFavorites`,
-  LOAD_OFFER: `offers/loadOffer`
+  LOAD_OFFER: `offers/loadOffer`,
+  LOAD_NEARBY_OFFERS: `offers/loadNearby`,
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({payload: city}));
@@ -22,6 +23,7 @@ export const activeForm = createAction(ActionType.ACTIVE_FORM, (boolean) => ({pa
 export const authorization = createAction(ActionType.AUTHORIZATION, (action, email) => ({payload: {action, email}}));
 export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({payload: url}));
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({payload: offers}));
+export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS, (offers) => ({payload: offers}));
 export const loadComments = createAction(ActionType.LOAD_REVIEWS, (comments, id) => {
   return {
     payload: {

@@ -4,10 +4,20 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {capitalizeFirstLetter, getRatingWidth} from '../../utils/common';
 import {addFavorite} from '../../store/api-actions';
+import browserHistory from '../../browser-history';
+import {Url} from '../../consts';
 
 const Card = ({price, image, title, isPremium, isFavorite, type, rating, id, setActiveOffer, addFavoriteList}) => {
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => setActiveOffer(id)} onMouseLeave={() => setActiveOffer(null)}>
+    <article className={`${browserHistory.location.pathname === Url.MAIN ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={() => {
+      if (browserHistory.location.pathname === Url.MAIN) {
+        setActiveOffer(id);
+      }
+    }} onMouseLeave={() => {
+      if (browserHistory.location.pathname === Url.MAIN) {
+        setActiveOffer(null);
+      }
+    }}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>

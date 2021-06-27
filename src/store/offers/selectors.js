@@ -7,6 +7,7 @@ export const getOffers = (state) => state[NameSpace.OFFERS].offers;
 export const getSortingType = (state) => state[NameSpace.OFFERS].sortType;
 export const getFavoriteOffers = (state) => state[NameSpace.OFFERS].favorites;
 export const getLoadedOffer = (state) => state[NameSpace.OFFERS].loadedOffer;
+export const getNearbyOffers = (state) => state[NameSpace.OFFERS].nearbyOffers;
 
 
 export const getOffersWithCity = createSelector(
