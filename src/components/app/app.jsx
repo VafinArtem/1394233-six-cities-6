@@ -7,6 +7,7 @@ import SignInScreen from '../sign-in-screen/sign-in-screen';
 import Favorites from '../favorites/favorites';
 import FullCard from '../full-card/full-card';
 import NotFound from '../not-found/not-found';
+import Spinner from '../spinner/spinner';
 import PrivateRoute from '../private-route/private-route';
 import {getLoadedOffer, getOffers} from '../../store/offers/selectors';
 import {Url} from '../../consts';
@@ -36,7 +37,7 @@ const App = ({offers, loadedOffer, loadOffer}) => {
 
         if (!loadedOffer || loadedOffer.id !== id) {
           loadOffer(id);
-          return <p>Loading...</p>;
+          return <Spinner />;
         }
         return <FullCard
           offer={loadedOffer}
